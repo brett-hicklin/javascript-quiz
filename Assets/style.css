@@ -1,0 +1,19 @@
+*{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.scoreAndTime {
+  font-size: 20px;
+}
+
+#scorePosition{
+position:relative;
+
+}
+
+#countDown {
+position: relative;
+left: 70vw;
+margin-right: 100px;
+
+}
