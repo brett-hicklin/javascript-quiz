@@ -21,17 +21,18 @@ var secondsLeft = 75;
 var highScores = document.querySelector("#highscores");
 var centerBtn = document.querySelector("#centerBtn");
 var title = document.querySelector("h1");
-var questionsStyling = document.querySelector("h3");
+var questionsAsked = document.querySelector("h3");
 var startBtn = document.querySelector("#startBtn");
 var timer = document.querySelector("#timer")
+var rightOrWrong = document.querySelector("#rightWrong")
 
 //styling for title of quiz
-title.textContent = "test";
+//title.textContent = "test";
 title.style.textAlign = "center";
 
 //styling for questions
-questionsStyling.innerText = "testing";
-questionsStyling.style.textAlign = "center";
+//questionsAsked.innerText = "testing";
+
 
 //centers the button in the screen
 centerBtn.style.textAlign ="center"
@@ -42,6 +43,8 @@ function startQuiz (){
 title.textContent = ""
 startBtn.style.visibility = "hidden"
 setTime ();
+questionsAsked.textContent = JSON.stringify(questionsArray[3])
+console.log(questionsArray[3])
 }
 
 
@@ -61,14 +64,58 @@ function setTime (){
 }
 
 
-questions[{
-    question: "What is an event?",
-    choices: ["A","B","C","D"],
-    answer:"A"
-},{
-
-}
-]
+var questionsArray = [
+  {
+    question: "Which of the following is considered an event?",
+    choices: ["up", "refresh", "charge", "mouseover"],
+    answer: "click",
+  },
+  {
+    question: "Which of the following is used to make an array?",
+    choices: ["''", "{}", "()", "[]"],
+    answer: "[]",
+  },
+  {
+    question: "How would you log something to the console?",
+    choices: ["consoleLog()", "console()", "console.log()", "console.write()"],
+    answer: "console.log()",
+  },
+  {
+    question: "What index is the first item in an array?",
+    choices: ["[0]", "[1]", "[2]", "[3]"],
+    answer: "[0]",
+  },
+  {
+    question: "what does shift() do to an array?",
+    choices: ["Adds item to the front of an array", "Removes the first item of an array", "Adds item to end of an array", "Removes item from the end of an array"],
+    answer: "Removes the first item of an array",
+  },
+  {
+    question: "What separates a property and a value in an object?",
+    choices: [";", "?", "=", ":"],
+    answer: ":",
+  },
+  {
+    question: "How do you call a function?",
+    choices: ["function()", "function;", "function{}", "function[]"],
+    answer: "function()",
+  },
+  {
+    question: "How do you declare a variable?",
+    choices: ["var x is 5", "var x.5", "var x = 5", "var = 5"],
+    answer: "var x = 5",
+  },
+  {
+    question: "which statement means strict equality?",
+    choices: ["=", "==", "===", "!=="],
+    answer: "===",
+  },
+  {
+    question: "What HTML tag does JavaScript go into?",
+    choices: ["<div>", "<script>", "<h2>", "<title>"],
+    answer: "<script>",
+  },
+];
 
 
 
