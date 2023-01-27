@@ -14,30 +14,61 @@ under final score value have an input field for initials and a button to submit 
 have highscore display initials and score. Place a button to go back and one to clear highscores
 going back goes to start quiz?
 
+
+
 */ 
-var count = 75;
-
+var secondsLeft = 75;
+var highScores = document.querySelector("#highscores");
+var centerBtn = document.querySelector("#centerBtn");
 var title = document.querySelector("h1");
-// title.innerText = "test";
-
-var questions = document.querySelector("#questions");
-// questions.innerText = "testing";
-
+var questionsStyling = document.querySelector("h3");
 var startBtn = document.querySelector("#startBtn");
+var timer = document.querySelector("#timer")
+
+//styling for title of quiz
+title.textContent = "test";
+title.style.textAlign = "center";
+
+//styling for questions
+questionsStyling.innerText = "testing";
+questionsStyling.style.textAlign = "center";
+
+//centers the button in the screen
+centerBtn.style.textAlign ="center"
+
 startBtn.addEventListener("click", startQuiz);
 
 function startQuiz (){
-
+title.textContent = ""
+startBtn.style.visibility = "hidden"
+setTime ();
 }
 
-var countDown = document.querySelector("countDown")
-setInterval (function (){
-for(let i = 0; i>0; i--){
-    count[i]
-}
-})
-,1000;
 
+function setTime (){
+    var timerInterval = setInterval( function (){
+        secondsLeft --;
+        timer.textContent = "time remaining:  " + secondsLeft;
+
+        if(secondsLeft === 0) {
+            timer.textContent = ""
+            clearInterval(timerInterval);
+    }
+
+
+
+},1000);
+}
+
+
+questions[{
+    question: "What is an event?",
+    choices: ["A","B","C","D"],
+    answer:"A"
+},{
+
+}
+]
 
 
 
