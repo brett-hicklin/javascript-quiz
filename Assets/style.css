@@ -21,6 +21,21 @@ margin-right: 100px;
   text-align: center;
 }
 
+h1 {
+  text-align: center;
+}
 /* li {
   text-align: center;
 } */
+
+#possibleAnswers {
+  list-style:upper-alpha;
+ 
+}
+#centerBtn {
+  text-align: center;
+}
+
+form{
+  display:list-item;
+}

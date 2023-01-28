@@ -23,19 +23,19 @@ var centerBtn = document.querySelector("#centerBtn");
 var title = document.querySelector("h1");
 var questionsAsked = document.querySelector("h3");
 var startBtn = document.querySelector("#startBtn");
-var timer = document.querySelector("#timer")
-var rightOrWrong = document.querySelector("#rightWrong")
-
-//styling for title of quiz
-//title.textContent = "test";
-title.style.textAlign = "center";
-
-//styling for questions
-//questionsAsked.innerText = "testing";
+var timer = document.querySelector("#timer");
+var rightOrWrong = document.querySelector("#rightWrong");
+var questionList = document.querySelector("#possibleAnswers")
 
 
-//centers the button in the screen
-centerBtn.style.textAlign ="center"
+
+
+
+
+// questionList.appendChild(firstQ)
+
+
+
 
 startBtn.addEventListener("click", startQuiz);
 
@@ -43,9 +43,10 @@ function startQuiz (){
 title.textContent = ""
 startBtn.style.visibility = "hidden"
 setTime ();
-questionsAsked.textContent = JSON.stringify(questionsArray[3])
-console.log(questionsArray[3])
+displayQuestion();
 }
+
+
 
 
 function setTime (){
@@ -63,6 +64,27 @@ function setTime (){
 },1000);
 }
 
+
+function displayQuestion(){
+    questionsAsked.textContent = questionsArray[0].question
+    
+    
+        for (i = 0; i < questionsArray[0].choices.length; i++) {
+            var choice = document.createElement("input")
+            var labelName = document.createElement("label")
+    
+            choice.setAttribute("type", "radio")
+            choice.setAttribute("id", `choice${i}`)
+            choice.setAttribute("name", "choice")
+            labelName.setAttribute("for",`choice${i}`)
+    
+            labelName.textContent = questionsArray[0].choices[i]
+    
+            questionList.appendChild(choice)
+            questionList.appendChild(labelName)
+            
+        }
+    }
 
 var questionsArray = [
   {
