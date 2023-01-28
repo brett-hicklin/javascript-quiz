@@ -13,7 +13,7 @@ going back goes to start quiz?
 
 TODOs
 
-center and make vertical choices 
+
 add styling to choices
 
 try to work on highscores (local storage) and counter
@@ -30,6 +30,7 @@ var startBtn = document.querySelector("#startBtn");
 var timer = document.querySelector("#timer");
 var rightOrWrong = document.querySelector("#rightWrong");
 var questionList = document.querySelector("#possibleAnswers")
+var result = document.querySelector("#rightWrong")
 
 
 
@@ -68,11 +69,12 @@ function setTime (){
 
 function displayQuestion(questionIndex){
     questionsAsked.textContent = questionsArray[questionIndex].question
-    
+    console.log(questionIndex)
     
         for (i = 0; i < questionsArray[questionIndex].choices.length; i++) {
-            var choice = document.createElement("input")
-            var labelName = document.createElement("label")
+            var choice = document.createElement("input");
+            var labelName = document.createElement("label");
+            var br = document.createElement("br");
     
             choice.setAttribute("type", "radio")
             choice.setAttribute("id", `choice${i}`)
@@ -83,17 +85,24 @@ function displayQuestion(questionIndex){
     
             questionList.appendChild(choice)
             questionList.appendChild(labelName)
-
+            questionList.appendChild(br)
             
             choice.addEventListener("click",function (event){
             var element = event.target;
             // console.log(element.getAttribute("value"))
             if(questionsArray[questionIndex].answer === element.getAttribute("value")){
-                console.log("test")
-                    // try making an parameter/argument for the questionArray index ie
-                    //que
-         }
+                result.setAttribute("Style", "color: green")
+                result.textContent = "Correct!"
+                
 
+                } else {
+                    result.setAttribute("style", "color: red")
+                    result.textContent = "Wrong!"
+                    displayQuestion
+                }
+                questionIndex += 1
+             displayQuestion(questionIndex)
+            
     })
             
         }

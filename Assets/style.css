@@ -24,12 +24,13 @@ margin-right: 100px;
 h1 {
   text-align: center;
 }
-/* li {
-  text-align: center;
-} */
+form {
+  position: absolute;
+  right: 50vw;
+}
 
 #possibleAnswers {
-  list-style:upper-alpha;
+  list-style: none;
  
 }
 #centerBtn {
@@ -38,4 +39,15 @@ h1 {
 
 form{
   display:list-item;
+}
+
+h4 {
+  font-style: italic;
+  font-weight: lighter;
+  position:relative;
+  left: 42vw;
+  top: 7vh;
+  font-size: large;
+  opacity: 70%;
+  
 }
