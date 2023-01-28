@@ -18,10 +18,12 @@ add styling to choices
 
 try to work on highscores (local storage) and counter
 work on what to do if question is right vs wrong
+make right/wrong comment disappear
 
 
 */ 
 var secondsLeft = 75;
+var currentScore = 0
 var highScores = document.querySelector("#highscores");
 var centerBtn = document.querySelector("#centerBtn");
 var title = document.querySelector("h1");
@@ -69,7 +71,8 @@ function setTime (){
 
 function displayQuestion(questionIndex){
     questionsAsked.textContent = questionsArray[questionIndex].question
-    console.log(questionIndex)
+    
+    
     
         for (i = 0; i < questionsArray[questionIndex].choices.length; i++) {
             var choice = document.createElement("input");
@@ -93,15 +96,18 @@ function displayQuestion(questionIndex){
             if(questionsArray[questionIndex].answer === element.getAttribute("value")){
                 result.setAttribute("Style", "color: green")
                 result.textContent = "Correct!"
+                currentScore += 1
+
                 
 
                 } else {
                     result.setAttribute("style", "color: red")
                     result.textContent = "Wrong!"
-                    displayQuestion
+                    secondsLeft -=5
                 }
                 questionIndex += 1
              displayQuestion(questionIndex)
+             console.log(currentScore)
             
     })
             
