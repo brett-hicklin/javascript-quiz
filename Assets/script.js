@@ -29,14 +29,6 @@ var questionList = document.querySelector("#possibleAnswers")
 
 
 
-
-
-
-// questionList.appendChild(firstQ)
-
-
-
-
 startBtn.addEventListener("click", startQuiz);
 
 function startQuiz (){
@@ -44,6 +36,7 @@ title.textContent = ""
 startBtn.style.visibility = "hidden"
 setTime ();
 displayQuestion();
+
 }
 
 
@@ -57,12 +50,16 @@ function setTime (){
         if(secondsLeft === 0) {
             timer.textContent = ""
             clearInterval(timerInterval);
+            //say game over
+            //go to highscores
+
     }
 
 
 
 },1000);
 }
+
 
 
 function displayQuestion(){
@@ -77,11 +74,22 @@ function displayQuestion(){
             choice.setAttribute("id", `choice${i}`)
             choice.setAttribute("name", "choice")
             labelName.setAttribute("for",`choice${i}`)
-    
+            choice.setAttribute("value", questionsArray[0].choices[i])
             labelName.textContent = questionsArray[0].choices[i]
     
             questionList.appendChild(choice)
             questionList.appendChild(labelName)
+
+            
+            choice.addEventListener("click",function (event){
+            var element = event.target;
+            // console.log(element.getAttribute("value"))
+            if(questionsArray[0].answer === element.getAttribute("value")){
+                console.log("test")
+            
+         }
+
+    })
             
         }
     }
@@ -90,7 +98,7 @@ var questionsArray = [
   {
     question: "Which of the following is considered an event?",
     choices: ["up", "refresh", "charge", "mouseover"],
-    answer: "click",
+    answer: "mouseover",
   },
   {
     question: "Which of the following is used to make an array?",
