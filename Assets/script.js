@@ -1,11 +1,8 @@
 /*
 create HTML elements for title that i can change to "the questions", "highscores"
 
-start with getting score and time on top of screen
 then start a countdown timer function upon click of "start quiz" that removes 5 seconds for each wrong answer
-then hide "title" of coding quiz 
-then make h3 bolded asking "question" as property from object with an array
-then supply possible answers as values from the question property from an array inside of an object
+ 
 style buttons to react if hovered over
 when wrong answer selected, subtract time and place some text below saying "wrong!" and move to next question
 when right answer selected say "Correct!" and move to next question
@@ -14,6 +11,13 @@ under final score value have an input field for initials and a button to submit 
 have highscore display initials and score. Place a button to go back and one to clear highscores
 going back goes to start quiz?
 
+TODOs
+
+center and make vertical choices 
+add styling to choices
+
+try to work on highscores (local storage) and counter
+work on what to do if question is right vs wrong
 
 
 */ 
@@ -35,7 +39,7 @@ function startQuiz (){
 title.textContent = ""
 startBtn.style.visibility = "hidden"
 setTime ();
-displayQuestion();
+displayQuestion(0);
 
 }
 
@@ -62,11 +66,11 @@ function setTime (){
 
 
 
-function displayQuestion(){
-    questionsAsked.textContent = questionsArray[0].question
+function displayQuestion(questionIndex){
+    questionsAsked.textContent = questionsArray[questionIndex].question
     
     
-        for (i = 0; i < questionsArray[0].choices.length; i++) {
+        for (i = 0; i < questionsArray[questionIndex].choices.length; i++) {
             var choice = document.createElement("input")
             var labelName = document.createElement("label")
     
@@ -74,8 +78,8 @@ function displayQuestion(){
             choice.setAttribute("id", `choice${i}`)
             choice.setAttribute("name", "choice")
             labelName.setAttribute("for",`choice${i}`)
-            choice.setAttribute("value", questionsArray[0].choices[i])
-            labelName.textContent = questionsArray[0].choices[i]
+            choice.setAttribute("value", questionsArray[questionIndex].choices[i])
+            labelName.textContent = questionsArray[questionIndex].choices[i]
     
             questionList.appendChild(choice)
             questionList.appendChild(labelName)
@@ -84,9 +88,10 @@ function displayQuestion(){
             choice.addEventListener("click",function (event){
             var element = event.target;
             // console.log(element.getAttribute("value"))
-            if(questionsArray[0].answer === element.getAttribute("value")){
+            if(questionsArray[questionIndex].answer === element.getAttribute("value")){
                 console.log("test")
-            
+                    // try making an parameter/argument for the questionArray index ie
+                    //que
          }
 
     })
