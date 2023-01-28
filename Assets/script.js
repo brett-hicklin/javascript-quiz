@@ -34,7 +34,15 @@ var rightOrWrong = document.querySelector("#rightWrong");
 var questionList = document.querySelector("#possibleAnswers");
 var result = document.querySelector("#rightWrong");
 var clearQuestions = document.querySelector("form");
+var hideWindow = document.querySelector("#hideWindow");
+var highscoreBox = document.querySelector("#highscoreBox")
+var highscoreEntry = document.querySelector("#highscoreEntry")
 
+
+
+
+highScores.style.visibility = "hidden";
+highscoreBox.style.visibility = "hidden"
 
 
 startBtn.addEventListener("click", startQuiz);
@@ -42,8 +50,10 @@ startBtn.addEventListener("click", startQuiz);
 function startQuiz (){
 title.textContent = ""
 startBtn.style.visibility = "hidden"
+currentScore = 0;
 setTime ();
 displayQuestion(0);
+
 
 }
 
@@ -55,9 +65,10 @@ function setTime (){
         secondsLeft --;
         timer.textContent = "time remaining:  " + secondsLeft;
 
-        if(secondsLeft === 0) {
+        if(secondsLeft <= 0) {
             timer.textContent = ""
             clearInterval(timerInterval);
+            // highscoreTable();
             
             //say game over
             //go to highscores
@@ -78,9 +89,10 @@ function displayQuestion(questionIndex){
     clearQuestions.textContent = ""
 
         for (i = 0; i < questionsArray[questionIndex].choices.length; i++) {
+            var formPara = document.createElement("p")
             var choice = document.createElement("input");
             var labelName = document.createElement("label");
-            var br = document.createElement("br");
+            
     
             choice.setAttribute("type", "radio")
             choice.setAttribute("id", `choice${i}`)
@@ -88,10 +100,11 @@ function displayQuestion(questionIndex){
             labelName.setAttribute("for",`choice${i}`)
             choice.setAttribute("value", questionsArray[questionIndex].choices[i])
             labelName.textContent = questionsArray[questionIndex].choices[i]
-    
-            questionList.appendChild(choice)
-            questionList.appendChild(labelName)
-            questionList.appendChild(br)
+            
+            questionList.appendChild(formPara)
+            formPara.appendChild(choice)
+            formPara.appendChild(labelName)
+            
             
             choice.addEventListener("click",function (event){
             var element = event.target;
@@ -104,17 +117,15 @@ function displayQuestion(questionIndex){
                 } else {
                     result.setAttribute("style", "color: red")
                     result.textContent = "Wrong!"
-                    secondsLeft -=5
+                    secondsLeft -=10
                 }
             questionIndex += 1
             displayQuestion(questionIndex)
 
-             
-            
     })
 }     
         } else {
-            console.log("test");
+    
             highscoreTable();
         }
         
@@ -122,12 +133,47 @@ function displayQuestion(questionIndex){
     }
 
     function highscoreTable(){
+        var textInput = document.createElement("input")
+        var submitBtn = document.createElement("input");
+        var enterInitials = document.createElement("label");
+
+        hideWindow.style.visibility = "hidden";
+        title.textContent = "Highscores";
+        title.style.visibility = "visible";
+        highScores.style.visibility = "visible";
         
-        var clearWindow = document.querySelector("body")
-        clearWindow.style.visibility = "hidden";
-        var test = document.createElement(h1)
-        document.body.appendChild(test)
-        test.textContent = "test"
+        
+        textInput.setAttribute("type", "text")
+        textInput.setAttribute("name", "initials")
+        textInput.setAttribute("id", "textField")
+        submitBtn.setAttribute( "type", "submit")
+        enterInitials.setAttribute("for", "initials")
+        enterInitials.textContent = "Enter initials: ";
+
+        highscoreEntry.appendChild(enterInitials);
+        highscoreEntry.appendChild(textInput);
+        highscoreEntry.appendChild(submitBtn);
+        
+        submitBtn.addEventListener("click", function(){
+            var element = document.querySelector("#textField")
+            var scoreInitials = {
+                score: currentScore,
+                initials: element.value
+            }
+             var scoreArray = JSON.parse(localStorage.getItem("scores"));
+            
+             if(scoreArray === null){
+                scoreArray = [];
+             }
+
+          
+            scoreArray.push(scoreInitials)
+
+            localStorage.setItem("scores", JSON.stringify(scoreArray))
+            
+            
+        })
+        
 
     }
 var questionsArray = [

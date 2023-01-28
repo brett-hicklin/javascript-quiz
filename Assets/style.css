@@ -25,10 +25,17 @@ h1 {
   text-align: center;
 }
 form {
-  position: absolute;
-  right: 50vw;
-}
+  display: table;
 
+  margin-left: 40vw;
+  margin-bottom: 0;
+}
+input, label{
+  display: table-cell;
+}
+p{
+  display: table-row;
+}
 #possibleAnswers {
   list-style: none;
  
@@ -37,17 +44,29 @@ form {
   text-align: center;
 }
 
-form{
-  display:list-item;
-}
-
 h4 {
   font-style: italic;
   font-weight: lighter;
   position:relative;
   left: 42vw;
-  top: 7vh;
   font-size: large;
   opacity: 70%;
   
+}
+#highscoreBox{
+  background-color: aliceblue;
+  height: 200px;
+  width: 270px;
+  border: solid black 3px;
+  border-radius: 5px ;
+  position: relative;
+  left: 37vw;
+}
+#finishedScore {
+ 
+}
+
+#highscoreEntry{
+  position: absolute;
+  left: 25vw;
 }

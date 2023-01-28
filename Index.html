@@ -8,24 +8,45 @@
     <link rel="stylesheet" href="./Assets/style.css" />
 </head>
 <body>
-    <span class="scoreAndTime" id="scorePosition"> <a href src = "#highscores">View Highscores</a> </span>
+    <span class="hideWindow" class="scoreAndTime" id="scorePosition"> <a href src="#highscores">View Highscores</a>
+    </span>
 
     <span class="scoreAndTime" id="timer"> </span>
 
-    <h1><center>Coding Quiz Challenge</center></h1>
+    <h1>
+        <center>Coding Quiz Challenge</center>
+    </h1>
 
-    <h3 id="questions" > <center>subtext explaining the Quiz</center></h3>
-    <div id="centerBtn">
-        <button id="startBtn" >Start Quiz</button>
+    <p>
+        
+    </p>
+    <div id="hideWindow">
+        <h3 id="questions">
+            <center>subtext explaining the Quiz</center>
+        </h3>
+        <div id="centerBtn">
+            <button id="startBtn">Start Quiz</button>
+        </div>
+        <form id="possibleAnswers">
+
+
+        </form>
+
+        
+            <!-- <input type="submit"> -->
+        
+        <h4 id="rightWrong"></h4>
     </div>
-    <form id="possibleAnswers">
-      
-     
-    </form>
-    <h4 id="rightWrong"></h4>
-    
-    <!-- <ol id="highscores">
-    </ol> -->
+    <div id="highscoreEntry">
+
+    </div>
+    <div id="highscoreBox">
+
+        <ol id="highscores">
+        
+        </ol>
+    </div>
     <script src="./Assets/script.js"> </script>
 </body>
+
 </html>
