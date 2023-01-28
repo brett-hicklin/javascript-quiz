@@ -23,7 +23,7 @@ make right/wrong comment disappear
 
 */ 
 var secondsLeft = 75;
-var currentScore = 0
+var currentScore = 0;
 var highScores = document.querySelector("#highscores");
 var centerBtn = document.querySelector("#centerBtn");
 var title = document.querySelector("h1");
@@ -31,8 +31,9 @@ var questionsAsked = document.querySelector("h3");
 var startBtn = document.querySelector("#startBtn");
 var timer = document.querySelector("#timer");
 var rightOrWrong = document.querySelector("#rightWrong");
-var questionList = document.querySelector("#possibleAnswers")
-var result = document.querySelector("#rightWrong")
+var questionList = document.querySelector("#possibleAnswers");
+var result = document.querySelector("#rightWrong");
+var clearQuestions = document.querySelector("form");
 
 
 
@@ -57,6 +58,7 @@ function setTime (){
         if(secondsLeft === 0) {
             timer.textContent = ""
             clearInterval(timerInterval);
+            
             //say game over
             //go to highscores
 
@@ -70,10 +72,11 @@ function setTime (){
 
 
 function displayQuestion(questionIndex){
+    if(questionIndex < questionsArray.length){
+        
     questionsAsked.textContent = questionsArray[questionIndex].question
-    
-    
-    
+    clearQuestions.textContent = ""
+
         for (i = 0; i < questionsArray[questionIndex].choices.length; i++) {
             var choice = document.createElement("input");
             var labelName = document.createElement("label");
@@ -98,22 +101,35 @@ function displayQuestion(questionIndex){
                 result.textContent = "Correct!"
                 currentScore += 1
 
-                
-
                 } else {
                     result.setAttribute("style", "color: red")
                     result.textContent = "Wrong!"
                     secondsLeft -=5
                 }
-                questionIndex += 1
-             displayQuestion(questionIndex)
-             console.log(currentScore)
+            questionIndex += 1
+            displayQuestion(questionIndex)
+
+             
             
     })
-            
+}     
+        } else {
+            console.log("test");
+            highscoreTable();
         }
+        
+        
     }
 
+    function highscoreTable(){
+        
+        var clearWindow = document.querySelector("body")
+        clearWindow.style.visibility = "hidden";
+        var test = document.createElement(h1)
+        document.body.appendChild(test)
+        test.textContent = "test"
+
+    }
 var questionsArray = [
   {
     question: "Which of the following is considered an event?",
