@@ -1,27 +1,4 @@
-/*
-create HTML elements for title that i can change to "the questions", "highscores"
 
-then start a countdown timer function upon click of "start quiz" that removes 5 seconds for each wrong answer
- 
-style buttons to react if hovered over
-when wrong answer selected, subtract time and place some text below saying "wrong!" and move to next question
-when right answer selected say "Correct!" and move to next question
-when time runs out OR finished answering questions say "All done!" and give final score value
-under final score value have an input field for initials and a button to submit score/initials to highscore table
-have highscore display initials and score. Place a button to go back and one to clear highscores
-going back goes to start quiz?
-
-TODOs
-
-
-add styling to choices
-
-try to work on highscores (local storage) and counter
-work on what to do if question is right vs wrong
-make right/wrong comment disappear
-
-
-*/ 
 var secondsLeft = 75;
 var currentScore = 0;
 var highScores = document.querySelector("#highscores");
@@ -35,167 +12,156 @@ var questionList = document.querySelector("#possibleAnswers");
 var result = document.querySelector("#rightWrong");
 var clearQuestions = document.querySelector("form");
 var hideWindow = document.querySelector("#hideWindow");
-var highscoreBox = document.querySelector("#highscoreBox")
-var highscoreEntry = document.querySelector("#highscoreEntry")
-
-
-
+var highscoreBox = document.querySelector("#highscoreBox");
+var highscoreEntry = document.querySelector("#highscoreEntry");
 
 highScores.style.visibility = "hidden";
 highscoreBox.style.visibility = "hidden"
 
-
 startBtn.addEventListener("click", startQuiz);
-var isHighscoreTable = false
+var isHighscoreTable = false;
 
-function startQuiz (){
-    isHighscoreTable = false;
-    title.textContent = ""
-    startBtn.style.visibility = "hidden"
-    currentScore = 0;
-    setTime ();
-    displayQuestion(0);
+function startQuiz() {
+  isHighscoreTable = false;
+  title.textContent = "";
+  startBtn.style.visibility = "hidden";
+  currentScore = 0;
+  setTime();
+  displayQuestion(0);
 }
 
+function setTime() {
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    timer.textContent = "time remaining:  " + secondsLeft;
 
-
-
-function setTime (){
-    var timerInterval = setInterval( function (){
-        secondsLeft --;
-        timer.textContent = "time remaining:  " + secondsLeft;
-
-        if(secondsLeft <= 0 || isHighscoreTable === true) {
-            timer.textContent = ""
-            clearInterval(timerInterval);
-            if(!isHighscoreTable){
-                highscoreTable();
-            }
-            
-            
-            //say game over
-            //go to highscores
-
+    if (secondsLeft <= 0 || isHighscoreTable === true) {
+      timer.textContent = "";
+      clearInterval(timerInterval);
+      if (!isHighscoreTable) {
+        highscoreTable();
+      }
     }
-
-
-
-},1000);
+  }, 1000);
 }
 
+function displayQuestion(questionIndex) {
+  if (questionIndex < questionsArray.length) {
+    questionsAsked.textContent = questionsArray[questionIndex].question;
+    clearQuestions.textContent = "";
 
+    for (let i = 0; i < questionsArray[questionIndex].choices.length; i++) {
+      var formPara = document.createElement("p");
+      var choice = document.createElement("input");
+      var labelName = document.createElement("label");
 
-function displayQuestion(questionIndex){
-    if(questionIndex < questionsArray.length){
-        
-    questionsAsked.textContent = questionsArray[questionIndex].question
-    clearQuestions.textContent = ""
+      choice.setAttribute("type", "radio");
+      choice.setAttribute("id", `choice${i}`);
+      choice.setAttribute("name", "choice");
+      labelName.setAttribute("for", `choice${i}`);
+      choice.setAttribute("value", questionsArray[questionIndex].choices[i]);
+      labelName.textContent = questionsArray[questionIndex].choices[i];
 
-        for (let i = 0; i < questionsArray[questionIndex].choices.length; i++) {
-            var formPara = document.createElement("p")
-            var choice = document.createElement("input");
-            var labelName = document.createElement("label");
-            
-    
-            choice.setAttribute("type", "radio")
-            choice.setAttribute("id", `choice${i}`)
-            choice.setAttribute("name", "choice")
-            labelName.setAttribute("for",`choice${i}`)
-            choice.setAttribute("value", questionsArray[questionIndex].choices[i])
-            labelName.textContent = questionsArray[questionIndex].choices[i]
-            
-            questionList.appendChild(formPara)
-            formPara.appendChild(choice)
-            formPara.appendChild(labelName)
-            
-            
-            choice.addEventListener("click",function (event){
-            var element = event.target;
-            // console.log(element.getAttribute("value"))
-            if(questionsArray[questionIndex].answer === element.getAttribute("value")){
-                result.setAttribute("Style", "color: green")
-                result.textContent = "Correct!"
-                currentScore += 1
+      questionList.appendChild(formPara);
+      formPara.appendChild(choice);
+      formPara.appendChild(labelName);
 
-                } else {
-                    result.setAttribute("style", "color: red")
-                    result.textContent = "Wrong!"
-                    secondsLeft -=10
-                }
-            questionIndex += 1
-            displayQuestion(questionIndex)
+      choice.addEventListener("click", function (event) {
+        var element = event.target;
 
-    })
-}     
+        if (
+          questionsArray[questionIndex].answer === element.getAttribute("value")
+        ) {
+          result.setAttribute("Style", "color: green");
+          result.textContent = "Correct!";
+          currentScore += 1;
         } else {
-            if(!isHighscoreTable){
-                highscoreTable();
-
-            }
-            
+          result.setAttribute("style", "color: red");
+          result.textContent = "Wrong!";
+          secondsLeft -= 10;
         }
-        
-    }
-
-    function highscoreTable(){
-      isHighscoreTable = true;
-      var textInput = document.createElement("input");
-      var submitBtn = document.createElement("input");
-      var enterInitials = document.createElement("label");
-
-      hideWindow.style.visibility = "hidden";
-      title.textContent = "High Scores";
-      title.style.visibility = "visible";
-      highScores.style.visibility = "visible";
-
-      textInput.setAttribute("type", "text");
-      textInput.setAttribute("name", "initials");
-      textInput.setAttribute("id", "textField");
-      submitBtn.setAttribute("type", "submit");
-      enterInitials.setAttribute("for", "initials");
-      enterInitials.textContent = "Enter initials: ";
-
-      highscoreEntry.appendChild(enterInitials);
-      highscoreEntry.appendChild(textInput);
-      highscoreEntry.appendChild(submitBtn);
-
-      submitBtn.addEventListener("click", function (event) {
-        var element = document.querySelector("#textField");
-
-        if (element.value === "" || element.value.length > 3) {
-          event.preventDefault();
-          alert("Please enter your initials");
-        } else{
-
-        var scoreInitials = {
-          score: currentScore,
-          initials: element.value,
-        };
-        var scoreArray = JSON.parse(localStorage.getItem("scores"));
-
-        if (scoreArray === null) {
-          scoreArray = [];
-        }
-
-        scoreArray.push(scoreInitials);
-        localStorage.setItem("scores", JSON.stringify(scoreArray));
-
-        highscoreEntry.style.visibility = "hidden";
-        // highscoreBox.style.visibility = "visible";
-        scoreArray.sort(function (a, b) {
-          return b.score - a.score;
-        });
-
-        for (let i = 0; i < scoreArray.length; i++) {
-          var listItem = document.createElement("li");
-
-          listItem.textContent = `${scoreArray[i].initials} - ${scoreArray[i].score} `;
-          highScores.appendChild(listItem);
-        }
-    }
+        questionIndex += 1;
+        displayQuestion(questionIndex);
       });
-      
     }
+  } else {
+    if (!isHighscoreTable) {
+      highscoreTable();
+    }
+  }
+}
+
+function highscoreTable() {
+  isHighscoreTable = true;
+  var textInput = document.createElement("input");
+  var submitBtn = document.createElement("input");
+  var enterInitials = document.createElement("label");
+  var clearBtn = document.createElement("button");
+
+  hideWindow.style.visibility = "hidden";
+  title.textContent = "High Scores";
+  title.style.visibility = "visible";
+  highScores.style.visibility = "visible";
+  clearBtn.style.visibility = "hidden";
+
+  textInput.setAttribute("type", "text");
+  textInput.setAttribute("name", "initials");
+  textInput.setAttribute("id", "textField");
+  submitBtn.setAttribute("type", "submit");
+  enterInitials.setAttribute("for", "initials");
+  enterInitials.textContent = "Enter initials: ";
+  clearBtn.textContent = "Clear high scores";
+  clearBtn.setAttribute("id", "clearBtn");
+  //   clearBtn.setAttribute("Type", "submit");
+
+  highscoreEntry.appendChild(enterInitials);
+  highscoreEntry.appendChild(textInput);
+  highscoreEntry.appendChild(submitBtn);
+  document.body.appendChild(clearBtn);
+
+  submitBtn.addEventListener("click", function (event) {
+    var element = document.querySelector("#textField");
+
+    if (element.value === "" || element.value.length > 3) {
+      event.preventDefault();
+      alert("Please enter your initials");
+    } else {
+      clearBtn.style.visibility = "visible";
+      var scoreInitials = {
+        score: currentScore,
+        initials: element.value,
+      };
+      var scoreArray = JSON.parse(localStorage.getItem("scores"));
+
+      if (scoreArray === null) {
+        scoreArray = [];
+      }
+
+      scoreArray.push(scoreInitials);
+      localStorage.setItem("scores", JSON.stringify(scoreArray));
+
+      highscoreEntry.style.visibility = "hidden";
+
+      scoreArray.sort(function (a, b) {
+        return b.score - a.score;
+      });
+
+      for (let i = 0; i < scoreArray.length; i++) {
+        var listItem = document.createElement("li");
+
+        listItem.textContent = `${scoreArray[i].initials} - ${scoreArray[i].score} `;
+        highScores.appendChild(listItem);
+      }
+
+      clearBtn.addEventListener("click", clearStorage);
+    }
+  });
+}
+
+function clearStorage() {
+  localStorage.clear();
+  highScores.textContent = "";
+}
 
 var questionsArray = [
   {
@@ -220,7 +186,12 @@ var questionsArray = [
   },
   {
     question: "what does shift() do to an array?",
-    choices: ["Adds item to the front of an array", "Removes the first item of an array", "Adds item to end of an array", "Removes item from the end of an array"],
+    choices: [
+      "Adds item to the front of an array",
+      "Removes the first item of an array",
+      "Adds item to end of an array",
+      "Removes item from the end of an array",
+    ],
     answer: "Removes the first item of an array",
   },
   {

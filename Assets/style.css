@@ -6,10 +6,7 @@
   font-size: 20px;
 }
 
-#scorePosition{
-position:relative;
 
-}
 
 #timer {
 position: relative;
@@ -28,17 +25,17 @@ margin-right: 100px;
   padding:0 3px;
 }
  
-/* p:hover{
-  
-  opacity: 80%;
-  border: solid black 3px;
-} */
+#clearBtn{
+  position: absolute;
+  left: 50vw;
+  bottom: 40vh;
+}
+
 h1 {
   text-align: center;
 }
 form {
   display: table;
-
   margin-left: 40vw;
   margin-bottom: 0;
 }
@@ -66,17 +63,10 @@ h4 {
   
 }
 #highscoreBox{
-  background-color: aliceblue;
-  height: 200px;
-  width: 270px;
-  border: solid black 3px;
-  border-radius: 5px ;
+  
   position: relative;
-  left: 38vw;
+  left: 41vw;
   bottom: 20vh;
-}
-#finishedScore {
- 
 }
 
 #highscoreEntry{
