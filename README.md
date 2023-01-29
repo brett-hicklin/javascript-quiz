@@ -17,7 +17,7 @@ This website can be ran on Github Pages using the following link [JavaScript Qui
 
 Once the website has loaded in your preferred way, click on the "Start Quiz" button to start your quiz! Answer each question as best you can, and as quick as you can, as there is only 75 seconds allowed! If you run out of time before the last question is answered the game will end and your score will be logged. You get 1 point for each right question, and minus 10 seconds on the clock for each wrong question. Once you get to the end of the quiz by answer all the questions or having the time run out, you can then enter your initials to be added onto the high scores. Once you click submit, you will be taken the view the high scores, where you can see how you did. There is also a "clear high scores" button to reset the high score table. There is also a link in the top left of the screen to start the quiz over at any point
 
-example screenshots are provided below:
+example screenshots are provided below: 
 
 ![Quiz start](./Assets/images/quiz1.png)
 ![Quiz first question](./Assets/images/quiz2.png)
