@@ -1,31 +1,31 @@
-*{
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .scoreAndTime {
   font-size: 20px;
 }
 
-
-
 #timer {
-position: relative;
-left: 70vw;
-margin-right: 100px;
+  position: relative;
+  left: 70vw;
+  margin-right: 100px;
 
 }
+
 #questions {
   text-align: center;
 }
+
 #hideWindow label:hover {
   color: aliceblue;
   background-color: rgb(103, 101, 108);
   opacity: 80%;
   border-radius: 5px;
-  padding:0 3px;
+  padding: 0 3px;
 }
- 
-#clearBtn{
+
+#clearBtn {
   position: absolute;
   left: 50vw;
   bottom: 40vh;
@@ -34,21 +34,27 @@ margin-right: 100px;
 h1 {
   text-align: center;
 }
+
 form {
   display: table;
   margin-left: 40vw;
   margin-bottom: 0;
 }
-input, label{
+
+input,
+label {
   display: table-cell;
 }
-p{
+
+p {
   display: table-row;
 }
+
 #possibleAnswers {
   list-style: none;
- 
+
 }
+
 #centerBtn {
   text-align: center;
 }
@@ -56,20 +62,21 @@ p{
 h4 {
   font-style: italic;
   font-weight: lighter;
-  position:relative;
+  position: relative;
   left: 42vw;
   font-size: large;
   opacity: 70%;
-  
+
 }
-#highscoreBox{
-  
+
+#highscoreBox {
+
   position: relative;
   left: 41vw;
   bottom: 20vh;
 }
 
-#highscoreEntry{
+#highscoreEntry {
   position: absolute;
   left: 44vw;
   top: 25vh;

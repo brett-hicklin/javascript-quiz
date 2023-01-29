@@ -2,18 +2,17 @@
 var secondsLeft = 75;
 var currentScore = 0;
 var highScores = document.querySelector("#highscores");
-var centerBtn = document.querySelector("#centerBtn");
 var title = document.querySelector("h1");
 var questionsAsked = document.querySelector("h3");
 var startBtn = document.querySelector("#startBtn");
 var timer = document.querySelector("#timer");
-var rightOrWrong = document.querySelector("#rightWrong");
 var questionList = document.querySelector("#possibleAnswers");
 var result = document.querySelector("#rightWrong");
 var clearQuestions = document.querySelector("form");
 var hideWindow = document.querySelector("#hideWindow");
 var highscoreBox = document.querySelector("#highscoreBox");
 var highscoreEntry = document.querySelector("#highscoreEntry");
+var subtitle = document.querySelector("#subtitle")
 
 highScores.style.visibility = "hidden";
 highscoreBox.style.visibility = "hidden"
@@ -25,6 +24,8 @@ function startQuiz() {
   isHighscoreTable = false;
   title.textContent = "";
   startBtn.style.visibility = "hidden";
+  subtitle.textContent = ""
+
   currentScore = 0;
   setTime();
   displayQuestion(0);
@@ -103,6 +104,9 @@ function highscoreTable() {
   title.style.visibility = "visible";
   highScores.style.visibility = "visible";
   clearBtn.style.visibility = "hidden";
+  subtitle.textContent = `Final Score: ${currentScore}`;
+  subtitle.style.visibility = "visible";
+  subtitle.style.textAlign = "center"
 
   textInput.setAttribute("type", "text");
   textInput.setAttribute("name", "initials");
@@ -161,6 +165,7 @@ function highscoreTable() {
 function clearStorage() {
   localStorage.clear();
   highScores.textContent = "";
+  subtitle.textContent = "";
 }
 
 var questionsArray = [
