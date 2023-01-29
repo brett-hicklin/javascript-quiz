@@ -20,13 +20,19 @@ margin-right: 100px;
 #questions {
   text-align: center;
 }
-
- 
-p:hover{
+#hideWindow label:hover {
+  color: aliceblue;
   background-color: rgb(103, 101, 108);
   opacity: 80%;
-  border: solid black 3px;
+  border-radius: 5px;
+  padding:0 3px;
 }
+ 
+/* p:hover{
+  
+  opacity: 80%;
+  border: solid black 3px;
+} */
 h1 {
   text-align: center;
 }
