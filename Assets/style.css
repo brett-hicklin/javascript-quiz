@@ -60,7 +60,8 @@ h4 {
   border: solid black 3px;
   border-radius: 5px ;
   position: relative;
-  left: 37vw;
+  left: 38vw;
+  bottom: 20vh;
 }
 #finishedScore {
  

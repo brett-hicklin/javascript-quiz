@@ -48,13 +48,11 @@ highscoreBox.style.visibility = "hidden"
 startBtn.addEventListener("click", startQuiz);
 
 function startQuiz (){
-title.textContent = ""
-startBtn.style.visibility = "hidden"
-currentScore = 0;
-setTime ();
-displayQuestion(0);
-
-
+    title.textContent = ""
+    startBtn.style.visibility = "hidden"
+    currentScore = 0;
+    setTime ();
+    displayQuestion(0);
 }
 
 
@@ -88,7 +86,7 @@ function displayQuestion(questionIndex){
     questionsAsked.textContent = questionsArray[questionIndex].question
     clearQuestions.textContent = ""
 
-        for (i = 0; i < questionsArray[questionIndex].choices.length; i++) {
+        for (let i = 0; i < questionsArray[questionIndex].choices.length; i++) {
             var formPara = document.createElement("p")
             var choice = document.createElement("input");
             var labelName = document.createElement("label");
@@ -156,6 +154,9 @@ function displayQuestion(questionIndex){
         
         submitBtn.addEventListener("click", function(){
             var element = document.querySelector("#textField")
+            // if (element === undefined || element.value.length >3){
+            //     alert("Please enter your initials")
+            // }
             var scoreInitials = {
                 score: currentScore,
                 initials: element.value
@@ -166,12 +167,22 @@ function displayQuestion(questionIndex){
                 scoreArray = [];
              }
 
-          
             scoreArray.push(scoreInitials)
-
             localStorage.setItem("scores", JSON.stringify(scoreArray))
             
-            
+            highscoreEntry.style.visibility = "hidden";
+            // highscoreBox.style.visibility = "visible";
+             scoreArray.sort(function (a,b){
+                return b.score - a.score;
+             })
+
+            for(let i = 0; i < scoreArray.length; i++){
+                
+                var listItem = document.createElement("li")
+
+                listItem.textContent = `${scoreArray[i].initials} - ${scoreArray[i].score} `
+                highScores.appendChild(listItem)
+            }
         })
         
 
