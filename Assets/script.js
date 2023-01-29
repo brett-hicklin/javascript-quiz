@@ -46,8 +46,10 @@ highscoreBox.style.visibility = "hidden"
 
 
 startBtn.addEventListener("click", startQuiz);
+var isHighscoreTable = false
 
 function startQuiz (){
+    isHighscoreTable = false;
     title.textContent = ""
     startBtn.style.visibility = "hidden"
     currentScore = 0;
@@ -63,10 +65,13 @@ function setTime (){
         secondsLeft --;
         timer.textContent = "time remaining:  " + secondsLeft;
 
-        if(secondsLeft <= 0) {
+        if(secondsLeft <= 0 || isHighscoreTable === true) {
             timer.textContent = ""
             clearInterval(timerInterval);
-            // highscoreTable();
+            if(!isHighscoreTable){
+                highscoreTable();
+            }
+            
             
             //say game over
             //go to highscores
@@ -123,70 +128,75 @@ function displayQuestion(questionIndex){
     })
 }     
         } else {
-    
-            highscoreTable();
+            if(!isHighscoreTable){
+                highscoreTable();
+
+            }
+            
         }
-        
         
     }
 
     function highscoreTable(){
-        var textInput = document.createElement("input")
-        var submitBtn = document.createElement("input");
-        var enterInitials = document.createElement("label");
+      isHighscoreTable = true;
+      var textInput = document.createElement("input");
+      var submitBtn = document.createElement("input");
+      var enterInitials = document.createElement("label");
 
-        hideWindow.style.visibility = "hidden";
-        title.textContent = "Highscores";
-        title.style.visibility = "visible";
-        highScores.style.visibility = "visible";
-        
-        
-        textInput.setAttribute("type", "text")
-        textInput.setAttribute("name", "initials")
-        textInput.setAttribute("id", "textField")
-        submitBtn.setAttribute( "type", "submit")
-        enterInitials.setAttribute("for", "initials")
-        enterInitials.textContent = "Enter initials: ";
+      hideWindow.style.visibility = "hidden";
+      title.textContent = "High Scores";
+      title.style.visibility = "visible";
+      highScores.style.visibility = "visible";
 
-        highscoreEntry.appendChild(enterInitials);
-        highscoreEntry.appendChild(textInput);
-        highscoreEntry.appendChild(submitBtn);
-        
-        submitBtn.addEventListener("click", function(){
-            var element = document.querySelector("#textField")
-            // if (element === undefined || element.value.length >3){
-            //     alert("Please enter your initials")
-            // }
-            var scoreInitials = {
-                score: currentScore,
-                initials: element.value
-            }
-             var scoreArray = JSON.parse(localStorage.getItem("scores"));
-            
-             if(scoreArray === null){
-                scoreArray = [];
-             }
+      textInput.setAttribute("type", "text");
+      textInput.setAttribute("name", "initials");
+      textInput.setAttribute("id", "textField");
+      submitBtn.setAttribute("type", "submit");
+      enterInitials.setAttribute("for", "initials");
+      enterInitials.textContent = "Enter initials: ";
 
-            scoreArray.push(scoreInitials)
-            localStorage.setItem("scores", JSON.stringify(scoreArray))
-            
-            highscoreEntry.style.visibility = "hidden";
-            // highscoreBox.style.visibility = "visible";
-             scoreArray.sort(function (a,b){
-                return b.score - a.score;
-             })
+      highscoreEntry.appendChild(enterInitials);
+      highscoreEntry.appendChild(textInput);
+      highscoreEntry.appendChild(submitBtn);
 
-            for(let i = 0; i < scoreArray.length; i++){
-                
-                var listItem = document.createElement("li")
+      submitBtn.addEventListener("click", function (event) {
+        var element = document.querySelector("#textField");
 
-                listItem.textContent = `${scoreArray[i].initials} - ${scoreArray[i].score} `
-                highScores.appendChild(listItem)
-            }
-        })
-        
+        if (element.value === "" || element.value.length > 3) {
+          event.preventDefault();
+          alert("Please enter your initials");
+        } else{
 
+        var scoreInitials = {
+          score: currentScore,
+          initials: element.value,
+        };
+        var scoreArray = JSON.parse(localStorage.getItem("scores"));
+
+        if (scoreArray === null) {
+          scoreArray = [];
+        }
+
+        scoreArray.push(scoreInitials);
+        localStorage.setItem("scores", JSON.stringify(scoreArray));
+
+        highscoreEntry.style.visibility = "hidden";
+        // highscoreBox.style.visibility = "visible";
+        scoreArray.sort(function (a, b) {
+          return b.score - a.score;
+        });
+
+        for (let i = 0; i < scoreArray.length; i++) {
+          var listItem = document.createElement("li");
+
+          listItem.textContent = `${scoreArray[i].initials} - ${scoreArray[i].score} `;
+          highScores.appendChild(listItem);
+        }
     }
+      });
+      
+    }
+
 var questionsArray = [
   {
     question: "Which of the following is considered an event?",
