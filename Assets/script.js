@@ -1,4 +1,4 @@
-
+// creating variables from DOM to use later in code
 var secondsLeft = 75;
 var currentScore = 0;
 var highScores = document.querySelector("#highscores");
@@ -14,12 +14,14 @@ var highscoreBox = document.querySelector("#highscoreBox");
 var highscoreEntry = document.querySelector("#highscoreEntry");
 var subtitle = document.querySelector("#subtitle")
 
+// hides the high score information until it's needed
 highScores.style.visibility = "hidden";
 highscoreBox.style.visibility = "hidden"
-
+// kicks off the start of the quiz by clicking "Start Quiz" button
 startBtn.addEventListener("click", startQuiz);
 var isHighscoreTable = false;
-
+//removes text and the start button once the button has been clicked. Also sets the current score to
+//0 for every time the quiz starts. This function also calls the set time function and display question
 function startQuiz() {
   isHighscoreTable = false;
   title.textContent = "";
@@ -30,7 +32,8 @@ function startQuiz() {
   setTime();
   displayQuestion(0);
 }
-
+//this function starts the timer and displays the count down while the quiz is being taken.
+//it also has the user go to the high score table when the time has run out.
 function setTime() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
@@ -45,28 +48,30 @@ function setTime() {
     }
   }, 1000);
 }
-
+//this function displays all the questions and possible answers throughout the quiz
 function displayQuestion(questionIndex) {
   if (questionIndex < questionsArray.length) {
     questionsAsked.textContent = questionsArray[questionIndex].question;
     clearQuestions.textContent = "";
 
     for (let i = 0; i < questionsArray[questionIndex].choices.length; i++) {
+      //below creates the elements required to display the answer choices
       var formPara = document.createElement("p");
       var choice = document.createElement("input");
       var labelName = document.createElement("label");
-
+      //below sets the attributes to make the choices selectable 
       choice.setAttribute("type", "radio");
       choice.setAttribute("id", `choice${i}`);
       choice.setAttribute("name", "choice");
       labelName.setAttribute("for", `choice${i}`);
       choice.setAttribute("value", questionsArray[questionIndex].choices[i]);
       labelName.textContent = questionsArray[questionIndex].choices[i];
-
+      //below displays the list of the choices to the HTML doc
       questionList.appendChild(formPara);
       formPara.appendChild(choice);
       formPara.appendChild(labelName);
-
+      // below checks to see if the answer selected was correct or incorrect, and starts adding up the score and
+      //subtracting time if incorrect answer was selected.
       choice.addEventListener("click", function (event) {
         var element = event.target;
 
@@ -81,6 +86,7 @@ function displayQuestion(questionIndex) {
           result.textContent = "Wrong!";
           secondsLeft -= 10;
         }
+        //this progresses the questions through the quiz
         questionIndex += 1;
         displayQuestion(questionIndex);
       });
@@ -91,14 +97,15 @@ function displayQuestion(questionIndex) {
     }
   }
 }
-
+//this function creates the elements for the high scores section and shows the scores
 function highscoreTable() {
+  //sets the high score to true so the timer running out wont add another "enter initials" field
   isHighscoreTable = true;
   var textInput = document.createElement("input");
   var submitBtn = document.createElement("input");
   var enterInitials = document.createElement("label");
   var clearBtn = document.createElement("button");
-
+  //hides and shows necessary content for the high scores, also displays final score
   hideWindow.style.visibility = "hidden";
   title.textContent = "High Scores";
   title.style.visibility = "visible";
@@ -107,7 +114,7 @@ function highscoreTable() {
   subtitle.textContent = `Final Score: ${currentScore}`;
   subtitle.style.visibility = "visible";
   subtitle.style.textAlign = "center"
-
+  // sets the attributes for the text field and submit button for entering your initials and adding score to high scores
   textInput.setAttribute("type", "text");
   textInput.setAttribute("name", "initials");
   textInput.setAttribute("id", "textField");
@@ -116,13 +123,14 @@ function highscoreTable() {
   enterInitials.textContent = "Enter initials: ";
   clearBtn.textContent = "Clear high scores";
   clearBtn.setAttribute("id", "clearBtn");
-  //   clearBtn.setAttribute("Type", "submit");
-
+  
+  // adds the created elements to the HTML doc
   highscoreEntry.appendChild(enterInitials);
   highscoreEntry.appendChild(textInput);
   highscoreEntry.appendChild(submitBtn);
   document.body.appendChild(clearBtn);
-
+  // upon click of the submit button, it takes the users input and verifies that it has initials as the input and
+  //is not empty or too long.
   submitBtn.addEventListener("click", function (event) {
     var element = document.querySelector("#textField");
 
@@ -130,6 +138,7 @@ function highscoreTable() {
       event.preventDefault();
       alert("Please enter your initials");
     } else {
+        //takes user input as well as the score and adds it to the display of high scores
       clearBtn.style.visibility = "visible";
       var scoreInitials = {
         score: currentScore,
@@ -149,25 +158,25 @@ function highscoreTable() {
       scoreArray.sort(function (a, b) {
         return b.score - a.score;
       });
-
+      // creates the list for all the high scores displayed
       for (let i = 0; i < scoreArray.length; i++) {
         var listItem = document.createElement("li");
 
         listItem.textContent = `${scoreArray[i].initials} - ${scoreArray[i].score} `;
         highScores.appendChild(listItem);
       }
-
+      //gives the option to clear the high scores by clicking said button
       clearBtn.addEventListener("click", clearStorage);
     }
   });
 }
-
+// function clears local storage, clears the final score and visually clears the high score table
 function clearStorage() {
   localStorage.clear();
   highScores.textContent = "";
   subtitle.textContent = "";
 }
-
+// the array of all the questions asked with their possible answers and the correct answer listed.
 var questionsArray = [
   {
     question: "Which of the following is considered an event?",
